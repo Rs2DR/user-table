@@ -1,48 +1,10 @@
-import { DeleteOutlined, EditOutlined } from '@ant-design/icons';
-import { Button, Space, Table, Tooltip } from 'antd';
-
-import type { TableProps } from 'antd';
+import { Table } from 'antd';
 
 import { formattedDate } from '@/utils/formattedDate';
 
-interface DataType {
-	key: string;
-	name: string;
-	age: number;
-	date: string;
-}
+import { columns } from './columns';
 
-const columns: TableProps<DataType>['columns'] = [
-	{
-		title: 'Имя',
-		dataIndex: 'name',
-		key: 'name',
-	},
-	{
-		title: 'Дата',
-		dataIndex: 'date',
-		key: 'date',
-	},
-	{
-		title: 'Возраст',
-		dataIndex: 'age',
-		key: 'age',
-	},
-	{
-		title: 'Action',
-		key: 'action',
-		render: (_: unknown, { name }: DataType) => (
-			<Space size='medium'>
-				<Tooltip title={`Delete ${name}`}>
-					<Button icon={<DeleteOutlined />} type='primary' />
-				</Tooltip>
-				<Tooltip title={`Edit ${name}`}>
-					<Button icon={<EditOutlined />} type='primary' />
-				</Tooltip>
-			</Space>
-		),
-	},
-];
+import type { DataType } from './columns';
 
 const data: DataType[] = [
 	{
@@ -59,6 +21,60 @@ const data: DataType[] = [
 	},
 	{
 		key: '3',
+		name: 'Joe Black',
+		age: 32,
+		date: formattedDate(Date.now()),
+	},
+	{
+		key: '4',
+		name: 'John Brown',
+		age: 32,
+		date: formattedDate(Date.now()),
+	},
+	{
+		key: '5',
+		name: 'Jim Green',
+		age: 42,
+		date: formattedDate(Date.now()),
+	},
+	{
+		key: '6',
+		name: 'Joe Black',
+		age: 32,
+		date: formattedDate(Date.now()),
+	},
+	{
+		key: '7',
+		name: 'John Brown',
+		age: 32,
+		date: formattedDate(Date.now()),
+	},
+	{
+		key: '8',
+		name: 'Jim Green',
+		age: 42,
+		date: formattedDate(Date.now()),
+	},
+	{
+		key: '9',
+		name: 'Joe Black',
+		age: 32,
+		date: formattedDate(Date.now()),
+	},
+	{
+		key: '10',
+		name: 'John Brown',
+		age: 32,
+		date: formattedDate(Date.now()),
+	},
+	{
+		key: '11',
+		name: 'Jim Green',
+		age: 42,
+		date: formattedDate(Date.now()),
+	},
+	{
+		key: '12',
 		name: 'Joe Black',
 		age: 32,
 		date: formattedDate(Date.now()),
