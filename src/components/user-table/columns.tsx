@@ -1,10 +1,9 @@
 import { DeleteOutlined, EditOutlined } from '@ant-design/icons';
-import { Button, Input, Space, Tooltip } from 'antd';
+import { Button, Space, Tooltip } from 'antd';
 
 import { formattedDate } from '@/utils/formattedDate';
 
 import type { TableProps } from 'antd';
-import type { FilterDropdownProps } from 'antd/es/table/interface';
 
 export interface DataType {
 	key: string;
@@ -22,40 +21,6 @@ export const columns: TableProps<DataType>['columns'] = [
 		showSorterTooltip: {
 			title: 'Сортировать по имени',
 		},
-		filterDropdown: ({
-			setSelectedKeys,
-			selectedKeys,
-			confirm,
-			clearFilters,
-		}: FilterDropdownProps) => (
-			<div style={{ padding: 8 }}>
-				<Input
-					placeholder='Поиск по имени'
-					style={{ marginBottom: 8, display: 'block' }}
-					value={selectedKeys[0]}
-					onChange={e =>
-						setSelectedKeys(e.target.value ? [e.target.value] : [])
-					}
-					onPressEnter={() => confirm()}
-				/>
-
-				<Space>
-					<Button type='primary' onClick={() => confirm()}>
-						Найти
-					</Button>
-					<Button
-						onClick={() => {
-							clearFilters?.();
-							confirm();
-						}}
-					>
-						Сброс
-					</Button>
-				</Space>
-			</div>
-		),
-		onFilter: (value, record) =>
-			record.name.toLowerCase().includes((value as string).toLowerCase()),
 	},
 	{
 		title: 'Дата',
