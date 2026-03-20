@@ -1,6 +1,8 @@
 import { DeleteOutlined, EditOutlined } from '@ant-design/icons';
 import { Button, Input, Space, Tooltip } from 'antd';
 
+import { formattedDate } from '@/utils/formattedDate';
+
 import type { TableProps } from 'antd';
 import type { FilterDropdownProps } from 'antd/es/table/interface';
 
@@ -8,7 +10,7 @@ export interface DataType {
 	key: string;
 	name: string;
 	age: number;
-	date: string;
+	date: Date | string | number;
 }
 
 export const columns: TableProps<DataType>['columns'] = [
@@ -64,6 +66,9 @@ export const columns: TableProps<DataType>['columns'] = [
 		showSorterTooltip: {
 			title: 'Нажмите для сортировки по дате',
 		},
+		render: (_: unknown, { date }: DataType) => (
+			<span>{formattedDate(date)}</span>
+		),
 	},
 	{
 		title: 'Возраст',
