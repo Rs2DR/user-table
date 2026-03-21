@@ -12,12 +12,10 @@
   },
   "dependencies": {
     "@ant-design/icons": "^6.1.0",
-    "@hookform/resolvers": "^5.2.2",
     "antd": "^6.3.3",
     "dayjs": "^1.11.20",
     "react": "^19.2.4",
-    "react-dom": "^19.2.4",
-    "react-hook-form": "^7.71.2"
+    "react-dom": "^19.2.4"
   },
   "devDependencies": {
     "@atomazing-org/eslint-config": "^3.7.1",
