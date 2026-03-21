@@ -1,10 +1,8 @@
-import { CalendarOutlined } from '@ant-design/icons';
-import { Input, Button, Form, Calendar, Popover, InputNumber } from 'antd';
-import locale from 'antd/es/date-picker/locale/ru_RU';
-import dayjs from 'dayjs';
+import { Input, Button, Form, InputNumber } from 'antd';
+
+import { CustomCalendarPopover } from '../custom-calendar-popover';
 
 import type { User } from '@/types/user';
-import type { Dayjs } from 'dayjs';
 
 interface UserFormProps {
 	initialValues?: Partial<User>;
@@ -28,7 +26,6 @@ export const UserForm = ({ initialValues, onSubmit }: UserFormProps) => {
 			layout='vertical'
 			onFinish={handleFinish}
 		>
-			{/* Имя */}
 			<Form.Item
 				label='Имя'
 				name='name'
@@ -37,17 +34,14 @@ export const UserForm = ({ initialValues, onSubmit }: UserFormProps) => {
 				<Input placeholder='Введите имя' />
 			</Form.Item>
 
-			{/* Дата через Popover + Calendar */}
 			<Form.Item
 				label='Дата'
 				name='date'
 				rules={[{ required: true, message: 'Выберите дату' }]}
 			>
-				{/* В Ant Design Form.Item передает value и onChange дочернему компоненту автоматически */}
 				<CustomCalendarPopover />
 			</Form.Item>
 
-			{/* Возраст */}
 			<Form.Item
 				label='Возраст'
 				name='age'
@@ -61,7 +55,7 @@ export const UserForm = ({ initialValues, onSubmit }: UserFormProps) => {
 					},
 				]}
 			>
-				<InputNumber style={{ width: '100%' }} />
+				<InputNumber placeholder='Возраст' style={{ width: '100%' }} />
 			</Form.Item>
 
 			<Button htmlType='submit' type='primary' block>
@@ -70,28 +64,3 @@ export const UserForm = ({ initialValues, onSubmit }: UserFormProps) => {
 		</Form>
 	);
 };
-
-const CustomCalendarPopover = ({ value, onChange }: any) => (
-	<Popover
-		content={
-			<div style={{ width: 300, border: '1px solid #d9d9d9', borderRadius: 4 }}>
-				<Calendar
-					fullscreen={false}
-					locale={locale}
-					value={value ? dayjs(value) : undefined}
-					onSelect={(date: Dayjs) => onChange?.(date.toDate())}
-				/>
-			</div>
-		}
-		placement='bottomLeft'
-		trigger='click'
-	>
-		<Input
-			placeholder='Выберите дату'
-			style={{ cursor: 'pointer' }}
-			suffix={<CalendarOutlined style={{ color: 'rgba(0,0,0,.45)' }} />}
-			value={value ? dayjs(value).format('DD.MM.YYYY') : ''}
-			readOnly
-		/>
-	</Popover>
-);

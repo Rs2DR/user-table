@@ -1,6 +1,8 @@
 import { useMemo } from 'react';
 import { Table } from 'antd';
 
+import { filterUsers } from '@/utils/filterUsers';
+
 import { columns } from './columns';
 
 import type { User } from '@/types/user';
@@ -15,19 +17,10 @@ export const UserTable = ({
 	dataSource,
 	...props
 }: UserTableProps) => {
-	const filteredData = useMemo(() => {
-		if (!searchValue) return dataSource;
-
-		if (!dataSource) return [];
-
-		const lowerSearch = searchValue.toLowerCase();
-
-		return dataSource.filter(item =>
-			Object.values(item).some(value =>
-				String(value).toLowerCase().includes(lowerSearch),
-			),
-		);
-	}, [searchValue, dataSource]);
+	const filteredData = useMemo(
+		() => filterUsers(dataSource ?? [], searchValue),
+		[searchValue, dataSource],
+	);
 
 	return <Table<User> columns={columns} dataSource={filteredData} {...props} />;
 };
