@@ -3,16 +3,10 @@ import { Button, Space, Tooltip } from 'antd';
 
 import { formattedDate } from '@/utils/formattedDate';
 
+import type { User } from '@/types/user';
 import type { TableProps } from 'antd';
 
-export interface DataType {
-	key: string;
-	name: string;
-	age: number;
-	date: Date | string | number;
-}
-
-export const columns: TableProps<DataType>['columns'] = [
+export const columns: TableProps<User>['columns'] = [
 	{
 		title: 'Имя',
 		dataIndex: 'name',
@@ -31,9 +25,7 @@ export const columns: TableProps<DataType>['columns'] = [
 		showSorterTooltip: {
 			title: 'Нажмите для сортировки по дате',
 		},
-		render: (_: unknown, { date }: DataType) => (
-			<span>{formattedDate(date)}</span>
-		),
+		render: (_: unknown, { date }: User) => <span>{formattedDate(date)}</span>,
 	},
 	{
 		title: 'Возраст',
@@ -48,7 +40,7 @@ export const columns: TableProps<DataType>['columns'] = [
 	{
 		title: 'Действия',
 		key: 'action',
-		render: (_: unknown, { name }: DataType) => (
+		render: (_: unknown, { name }: User) => (
 			<Space size='medium'>
 				<Tooltip title={`Delete ${name}`}>
 					<Button icon={<DeleteOutlined />} type='primary' />
