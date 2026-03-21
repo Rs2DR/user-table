@@ -1,12 +1,21 @@
 import { DeleteOutlined, EditOutlined } from '@ant-design/icons';
 import { Button, Space, Tooltip } from 'antd';
 
+import { UserModal } from '../user-modal';
 import { formattedDate } from '@/utils/formattedDate';
 
 import type { User } from '@/types/user';
 import type { TableProps } from 'antd';
 
-export const columns: TableProps<User>['columns'] = [
+interface GetColumnsArgs {
+	onDelete: (id: string) => void;
+	onEdit: (user: User) => void;
+}
+
+export const getColumns = ({
+	onDelete,
+	onEdit,
+}: GetColumnsArgs): TableProps<User>['columns'] => [
 	{
 		title: 'Имя',
 		dataIndex: 'name',
@@ -40,15 +49,39 @@ export const columns: TableProps<User>['columns'] = [
 	{
 		title: 'Действия',
 		key: 'action',
-		render: (_: unknown, { name }: User) => (
-			<Space size='medium'>
-				<Tooltip title={`Delete ${name}`}>
-					<Button icon={<DeleteOutlined />} type='primary' />
-				</Tooltip>
-				<Tooltip title={`Edit ${name}`}>
-					<Button icon={<EditOutlined />} type='primary' />
-				</Tooltip>
-			</Space>
-		),
+		render: (_: unknown, data: User) => {
+			const { name, id } = data;
+
+			const handleEdit = (user: User) => {
+				onEdit(user);
+			};
+
+			const handleDelete = () => {
+				onDelete(id);
+			};
+
+			return (
+				<Space size='medium'>
+					<UserModal
+						initialValues={data}
+						title='Редактировать пользователя'
+						trigger={
+							<Tooltip title={`Редактировать ${name}`}>
+								<Button icon={<EditOutlined />} type='primary' />
+							</Tooltip>
+						}
+						onSubmit={handleEdit}
+					/>
+					<Tooltip title={`Удалить ${name}`}>
+						<Button
+							icon={<DeleteOutlined />}
+							type='primary'
+							danger
+							onClick={handleDelete}
+						/>
+					</Tooltip>
+				</Space>
+			);
+		},
 	},
 ];

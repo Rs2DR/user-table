@@ -19,7 +19,17 @@ const App = () => {
 	};
 
 	const handleAddUser = (user: User) => {
-		setUsers(prev => [...prev, user]);
+		setUsers(prev => [...prev, { ...user, id: crypto.randomUUID() }]);
+	};
+
+	const handleDelete = (id: string) => {
+		setUsers(prev => prev.filter(user => user.id !== id));
+	};
+
+	const handleEdit = (updatedUser: User) => {
+		setUsers(prev =>
+			prev.map(user => (user.id === updatedUser.id ? updatedUser : user)),
+		);
 	};
 
 	return (
@@ -37,7 +47,12 @@ const App = () => {
 					onSearch={handleSearch}
 				/>
 			</Flex>
-			<UserTable dataSource={users} searchValue={searchValue} />
+			<UserTable
+				dataSource={users}
+				searchValue={searchValue}
+				onDelete={handleDelete}
+				onEdit={handleEdit}
+			/>
 		</Flex>
 	);
 };
